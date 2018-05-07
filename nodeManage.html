@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>集群配置</title>
+    <meta name="keywords" content="渠道通">
+    <meta name="description" content="渠道通">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Data Tables -->
+    <link href="css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min.css" rel="stylesheet">
+    <base target="_blank">
+    <script src="myjs/html5shiv.min.js"></script>
+    <script src="myjs/respond.min.js"></script>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title" style="border-radius: 4px">
+                    <h5></h5>
+                    <div class="ibox-tools">
+                        <a data-toggle="modal" id="Add" class="btn btn-sm btn-primary" href=""
+                           target="_self">新建节点</a>
+                    </div>
+                        <table class="table table-striped table-bordered table-hover " id="editable">
+                            <thead>
+                            <tr>
+                                <th style="text-align: center">ID</th>
+                                <th style="text-align: center">节点名称</th>
+                                <th style="text-align: center">节点IP</th>
+                                <th style="text-align: center">城市</th>
+                                <th style="text-align: center">端口</th>
+                                <th style="text-align: center">状态</th>
+                                <th style="text-align: center">--</th>
+                                <th style="text-align: center">--</th>
+                                <th style="text-align: center">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id='databody'>
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- 新增节点 -->
+<div id="modal-form" class="modal fade in" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="ibox float-e-margins">
+                            <div>
+                                <form method="get" class="form-horizontal">
+                                    <div class="form-group">
+                                        <input type="hidden" class="form-control" id="nodeid">
+                                        <label class="col-sm-2 control-label"><font color="red">*</font>节点名称</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="nodename" placeholder="4-16个字符，支持字母数字及下划线"  onblur="" 
+                                            onkeyup="this.value=this.value.replace(/[^\d\w\_]/g,'')" onafterpaste="this.value=this.value.replace(/[^\d\w\_]/g,'')">
+<!--                                             <span class="help-block m-b-none" id="spanaccno"><font color='gray'>4-16个字符，支持字母数字或下划线</font></span> -->
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><font color="red">*</font>节点IP</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="nodeip" placeholder="例如：192.168.10.17"  onblur="" 
+                                            onkeyup="this.value=this.value.replace(/[^\d\.]/g,'')" onafterpaste="this.value=this.value.replace(/[^\d\.]/g,'')">
+<!--                                             <span class="help-block m-b-none" id="spanname"><font -->
+<!--                                                     color='gray'>2-4个汉字或2-19个字母</font></span> -->
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><font color="red">*</font>城市</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="city" placeholder="4-16个字符，仅支持字母"  onblur="" 
+                                            onkeyup="this.value=this.value.replace(/[^\w]/g,'')" onafterpaste="this.value=this.value.replace(/[^\w]/g,'')">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><font color="red">*</font>端口</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="port" placeholder="例如：80"  onblur="" 
+                                            onkeyup="this.value=this.value.replace(/[^\d]/g,'')" onafterpaste="this.value=this.value.replace(/[^\d]/g,'')">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><font color="red">*</font>状态</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control m-b" name="account" id="state">
+                                                <option value="1">正常</option>
+                                                <option value="0">冻结</option>
+                                            </select>
+<!--                                             <input type="text" class="form-control" id="state"> -->
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><font color="red">*</font>--</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="descr">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><font color="red">*</font>--</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="logstash">
+                                        </div>
+                                    </div>
+<!--                                     <div class="form-group"> -->
+<!--                                         <label class="col-sm-2 control-label"><font color="red">*</font>城市</label> -->
+<!--                                         <div class="col-sm-10"> -->
+<!--                                             <select class="form-control m-b" name="account" id="state"> -->
+<!--                                                 <option value="1">正常</option> -->
+<!--                                                 <option value="0">冻结</option> -->
+<!--                                                 <option value="2">未激活</option> -->
+<!--                                             </select> -->
+<!--                                         </div> -->
+<!--                                     </div> -->
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4 col-sm-offset-2">
+                                            <a data-toggle="" id="Protect" class="btn btn-sm btn-primary"
+                                               href="javascript:saveuser();" target="_self">保存</a>
+                                            <a data-toggle="" id="cancelProtect" class="btn btn-sm btn-white"
+                                               href="javascript:reset();" target="_self">取消</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop fade in" style="display: none;"></div>
+<script src="myjs/date.js"></script>
+<script src="js/jquery.min.js-v=2.1.4"></script>
+<script src="js/bootstrap.min.js-v=3.3.5"></script>
+<script src="js/content.min.js-v=1.0.0"></script>
+<script src="js/plugins/iCheck/icheck.min.js"></script>
+<!-- <script src="myjs/login.js"></script> -->
+<script>
+	$(function () {getdatas();});
+    $("#Add").click(function () {
+         $("#modal-form").show(100);
+         $(".modal-backdrop").show(100);
+         $("#nodeid").val("");
+         saveType = 0;
+    });
+    var saveType = 0;
+    function getdatas() {
+    	var param = JSON.stringify({});
+    	$.ajax({
+            type: "post",
+            url: "/cluster/listcluster",
+            data: {'param': param},
+            dataType: 'json',
+            success: function (data) {
+                if (data.data == null || data.data.length < 0) {//没有节点
+                	$("#databody").html("暂无节点信息");
+                } else {
+                    var restr = "";
+                    for (var i = 0; i < data.data.length; i++) {
+                        var obj = data.data[i];
+                        var cluster_state = obj.cluster_state;
+                        cluster_state = 1 ? "正常":"冻结";
+//                         var ff = i+1;
+                        restr += "<tr class='gradeX' id='" + obj.id + "'>" +
+                                "<td align='center'>" + obj.id + "</td>" +
+                                "<td align='center'>" + obj.cluster_name + "</td>" +
+                                "<td align='center'>" + obj.cluster_ip + "</td>" +
+                                "<td align='center'>" + obj.cluster_city + "</td>" +
+                                "<td align='center'>" + obj.cluster_port + "</td>" +
+                                "<td align='center'>" + cluster_state + "</td>" + 
+                                "<td align='center'>" + obj.descr + "</td>" + 
+                                "<td align='center'>" + obj.logstash_index + "</td>";
+                            restr += "<td align='center'><nobr>" +
+//                                     "<a data-toggle='' class='btn btn-sm btn-primary' target='_self' href='javascript:editRow(&quot;" +
+//                                     obj.cluster_name + "&quot;,&quot;" + obj.cluster_ip + "&quot;,&quot;" + obj.cluster_city + "&quot;,&quot;" + obj.cluster_port +
+//                                     "&quot;,&quot;" + obj.cluster_state + "&quot;,&quot;" + obj.descr + "&quot;,&quot;" + obj.logstash_index + "&quot;,&quot;" + obj.id + "&quot;);'>编辑</a>&nbsp;&nbsp;" +
+                                    "<a data-toggle='' class='btn btn-sm btn-primary' target='_self' href='javascript:deleteRow(&quot;" + obj.cluster_name + "&quot;);'>删除</a>&nbsp;&nbsp;" +
+                                    "</nobr></td>";
+                        restr += "</tr>";
+                    }
+                    $("#databody").html(restr);
+                }
+            },
+            error: function (data) {
+//                 alert(data.status);
+            }
+        });
+    }
+    <!-- 取消增加或编辑节点 -->
+    function reset() {
+        $("#modal-form").hide(100);
+        $(".modal-backdrop.in").hide(100);
+//         $("#spanaccno").html("<font color='gray'>4-16个字符，支持字母数字或下划线</font>");
+//         $("#spanname").html("<font color='gray'>2-4个汉字或2-19个字母</font>");
+        $("#nodename").val("");
+        $("#nodeip").val("");
+        $("#city").val("");
+        $("#port").val("");
+        $("#state").val("");
+        $("#descr").val("");
+        $("#logstash").val("");
+    }
+    <!-- 增加或编辑节点 -->
+    function editRow(name, ip, city, port, state, descr, log, id) {
+    	 saveType = 1;
+         $("#modal-form").show(100);
+         $(".modal-backdrop.in").show(100);
+         $("#nodename").val(name);
+         $("#nodeip").val(ip);
+         $("#city").val(city);
+         $("#port").val(port);
+         $("#state").val(state);
+         $("#descr").val(descr);
+         $("#logstash").val(log);
+         $("#nodeid").val(id);
+    }
+    <!-- 保存节点信息 -->
+    function saveuser() {
+    		var nodename = $("#nodename").val();
+			var nodeip = $("#nodeip").val();
+			var city = $("#city").val();
+			var port = $("#port").val();
+			var state = $("#state").val();
+			var descr = $("#descr").val();
+			var logstash = $("#logstash").val();
+			var nodeid = $("#nodeid").val();
+		if(nodename!=''&&nodeip!=''&&city!=''&&port!=''&&state!=''){
+			var param = JSON.stringify({'clustername': nodename,'clusterip': nodeip,'clustercity': city,'clusterport':port,'clusterstate': state,'descr': descr,'logstashindex':logstash,'type':saveType,'id':nodeid});
+			$.ajax({
+				type: "post",
+				url: "/cluster/addcluster",
+				data: {'param':param},
+				dataType: 'json',
+				success: function(data){
+					if(data == true){
+						alert('操作成功');
+					}else{
+						alert('操作失败，请检查后重新操作');
+					}
+					reset();
+					getdatas();
+				},
+				error: function (data) {
+	              //alert(data.status);
+	          	}
+			});
+    	}else{
+    		alert("请正确填写节点信息");
+    	}
+    }
+    <!-- 删除节点信息 -->
+    function deleteRow(name) {
+    	var param = JSON.stringify({'clustername':name});
+        if (confirm("确定删除该节点吗？")) {
+            $.ajax({
+                type: "post",
+                url: "/cluster/deletecluster",
+                data: {'param': param},
+                dataType: 'json',
+                success: function (data) {
+                    //alert(JSON.stringify(data));
+                    alert("删除成功");
+                    getdatas();
+                },
+                error: function (data) {
+                    //alert(data.status);
+                }
+            });
+        }
+    }
+
+    //强制退出系统
+    function doNoTipExit() {
+        $.post("http://localhost:8080/service",
+                {"action": "doexit"},
+                function (result) {
+                    document.cookie = "currentUserId=%7B%22state%22%3A%22i%3A-1%22%7D; path=/ ";
+                    document.cookie = "isLocked=%7B%22state%22%3A%22i%3A0%22%7D; path=/ ";
+                    location.href = "login.html";
+                });
+    }
+    
+    //时间格式化转换
+    function dateFormat(fmt,date){
+	    if(date == '--'){
+	    	fmt = date
+	    }else {
+	    	var o = {   
+				    "M+" : date.getMonth()+1,                 //月份   
+				    "d+" : date.getDate(),                    //日   
+				    "h+" : date.getHours(),                   //小时   
+				    "m+" : date.getMinutes(),                 //分   
+				    "s+" : date.getSeconds(),                 //秒   
+				    "q+" : Math.floor((date.getMonth()+3)/3), //季度   
+				    "S"  : date.getMilliseconds()             //毫秒
+	    		}; 
+			 if(/(y+)/.test(fmt))   
+			    fmt=fmt.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length));   
+			  for(var k in o)   
+			    if(new RegExp("("+ k +")").test(fmt))   
+			  		fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+	    }
+		  return fmt;
+    }
+</script>
+</body>
+
+</html>

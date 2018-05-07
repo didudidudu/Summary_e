@@ -1,0 +1,89 @@
+.ibox {
+		    clear: both;
+		    margin-bottom: 0px;
+		    margin-top: 0;
+		    margin-right: 0px;
+		    margin-left: 0px;
+		    padding: 8px;
+		}
+		.map-box {
+			background-color:#fff;
+			color:inherit;
+			border-color:#e7eaec;
+			-webkit-border-image:none;
+			-o-border-image:none;
+			border-image:none;
+			border-style:solid solid none;
+			border-width:1px 0;
+			border-radius:0 0 4px 4px;
+			-webkit-box-shadow: #cecfcf 0px 2px 4px;
+		    -moz-box-shadow: #cecfcf 0px 2px 4px;
+		    box-shadow: #cecfcf 0px 2px 4px;
+		}
+        .tableflows {
+            overflow-y: auto;
+            height: 225px;
+        }
+        .headflows {
+        	height: 30px;
+        }
+		.map-content{
+			background-color:#fff;
+			color:inherit;
+			border-color:#e7eaec;
+			border-right: 0px solid #fff !important;
+			-webkit-border-image:none;
+			-o-border-image:none;
+			border-image:none;
+			border-style:solid solid none;
+			border-width:1px 0;
+			border-radius:4px;
+		}
+		.col-2,.col-6{
+ 			float:left; 
+/* 			border: 1px dashed #000 !important; */
+/* 			border-radius: 6px; */
+		}
+		.col-2{width:20%;display: inline-block;min-width:200px}
+		.col-6{width:59%;display: inline-block;min-width:300px}
+		@media (max-width:1100px) {
+			.col-2 {
+				display:none;
+				float:none
+			}
+			.col-6 {
+				width:100%;
+				float:none
+			}
+		}
+		.col-title-l{
+			width:65%;
+			height:30px;
+			background-color: #00CCCC;
+			padding:5px 25px 0px;
+			border-radius: 0 30px 30px 0;
+		}
+		.col-title-r{
+			margin-left: 107px;
+			width:65%;
+			height:30px;
+			background-color: #00CCCC;
+			padding:5px 25px 0px;
+			border-radius: 30px 0 0 30px;
+		}
+		.mapside{
+			overflow-y: auto;
+			height: 300px;
+			min-width: 200px;
+		}
+		.btn-group ul { 
+			width: 210px; 
+		} 
+		.btn-group li { 
+			width: 70px; /*如果显示三列 则width改为70px*/ 
+			float: left; 
+			display: block; 
+		} 
+		td,th{
+			text-align: center;
+		}

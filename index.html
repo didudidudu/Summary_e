@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <title>大数据威胁管理中心</title>
+    <meta name="keywords" content="XXX">
+    <meta name="description" content="XXX服务">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min.css" rel="stylesheet">
+    <script src="myjs/html5shiv.min.js"></script>
+    <script src="myjs/respond.min.js"></script>
+    <style type="text/css">
+    	@media (max-width:650px) {
+			#n,#nback,#u,#uback {
+				display: none;
+			}
+			.btn-l,.btn-r {
+				width: 40px;
+			}
+		}
+		@media (min-width:650px) {
+			.btn-l,.btn-r {
+				width: 90px;
+			}
+		}
+    	.top-column{
+    		position:fixed;
+    		top:0;
+    		height:55px;
+    		width:100%;
+    		background-color: #2f4050;
+/*     		border-radius:0px 0px 10px 10px; */
+			-webkit-box-shadow: #888888 0px 3px 5px;
+			-moz-box-shadow: #888888 0px 3px 5px;
+			box-shadow: #888888 0px 3px 5px;
+    	}
+    	.top-logo{
+    		position:absolute;
+    		float: left;
+    		left:5px;
+    		top:5px
+    	}
+    	#nodebtn:HOVER,#nodeback:HOVER,#userbtn:HOVER,#userback:HOVER,#exit:HOVER {
+			background-color: #2a3a48;
+		}
+		.btn-l,.btn-r{
+			height: 55px;
+/* 			width: 90px; */
+			cursor: pointer;
+			border-radius: 12px;
+		}
+		.btn-l{
+			float: left;
+		}
+		.btn-r{
+			float: right;
+		}
+		.btn-e{
+			height: 55px;
+			width: 40px;
+			cursor: pointer;
+			border-radius: 12px;
+			float: right;
+		}
+		.btn-l>a{
+			float: left;
+			color: white;
+ 			position:relative; 
+			top:20px;
+			left:10px;
+		}
+		.btn-r>a{
+			float: right;
+			color: white;
+ 			position:relative; 
+			top:20px;
+			right:10px;
+		}
+		.btn-e>a{
+			float: right;
+			color: white;
+ 			position:relative; 
+			top:20px;
+			right:10px;
+		}
+		.div-l,.div-r{
+			position:absolute;
+			bottom:0px;
+			height:calc(100% - 55px);
+			width:100%;
+			display: none;
+		}
+		.div-l{
+			left:-100%;
+		}
+		.div-r{
+			right:-100%;
+		}
+    </style>
+</head>
+
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+<div id="wrapper">
+    <!-- 顶部柄开始 -->
+    <div class="top-column" id="top-column">
+<!-- 		 <div class="top-logo"> -->
+<!-- 			<span><img alt="image" style="width:40px;" src="img/logo1.png"/>&nbsp;&nbsp;&nbsp;</span> -->
+<!--     	 </div> -->
+    	 <div style="height: 100%;width: 20%;float:left">
+    	 	<div id="nodebtn" class="btn-l" style="display:block;">
+				<a id="an"><i class="fa fa-gear fa-lg"></i>&nbsp;&nbsp;<span id="n">集群配置</span></a>
+	    	</div>
+	    	<div id="nodeback" class="btn-l" style="display:none;">
+	    	 	<a id="anback"><i class="fa fa-chevron-left"></i>&nbsp;&nbsp;<span id="nback">返回</span></a>
+	    	</div>
+    	 </div>
+    	 
+    	 <div id="globaltitle" style="height: 100%;width: 60%;float: left;">
+    	 	<span id="t" style="font-size: 1.7em;color: white;display: flex;justify-content: center;align-items:center;height: 100%;">XXX智能安全威胁管理中心</span>
+    	 </div>
+    	 
+    	 <div style="height: 100%;width: 20%;float:left">
+    	 	<div id="exit" class="btn-e" style="display:block;">
+	    	 	<a id="ae"><i class="fa fa fa-sign-out fa-lg"></i></a>
+	    	</div>
+	    	 
+	    	<div id="userbtn" class="btn-r" style="display:block;">
+	    	 	<a id="au"><span id="u">用户管理</span>&nbsp;&nbsp;<i class="fa fa-user-circle fa-lg"></i></a>
+	    	</div>
+	    	<div id="userback" class="btn-r" style="display:none;">
+	    	 	<a id="auback"><span id="uback">返回</span>&nbsp;&nbsp;<i class="fa fa-chevron-right"></i></a>
+	    	</div>
+    	 </div>
+    </div>
+    <!-- 顶部柄结束 -->
+    <!-- 内容部分开始 -->
+    
+    <!-- 滑出框 -->
+    <div id="nodediv" class="div-l">
+    	<div style="position: absolute;width: 100%;height: 100%">
+    		<iframe name=nodemanage width=100% height=100% src="" id="nodemanage"  frameborder="0"></iframe>
+    	</div>
+    </div>
+    <div id="userdiv" class="div-r">
+    	<div style="position: absolute;width: 100%;height: 100%">
+    		<iframe name=usermanage width=100% height=100% src="" id="usermanage"  frameborder="0"></iframe>
+    	</div>
+    </div>
+    <!-- 滑出框结束 -->
+    
+    <!-- 主要内容开始 -->
+    <div id="content" style="width:100%;height:100%;">
+    	<div class="row" id="content-main" style="height:100%;padding: 30px 15px 0px 15px;">
+            <iframe class="J_iframe" name="iframe0" id="iframe" width="100%" height="100%" src="globalpage.html" frameborder="0" data-id="globalpage.html" seamless></iframe>
+        </div>
+    </div>
+    <!-- 主要内容结束 -->
+    
+    <!-- 内容部分结束 -->
+</div>
+<script src="js/jquery.min.js-v=2.1.4"></script>
+<script src="js/bootstrap.min.js-v=3.3.5"></script>
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="js/plugins/layer/layer.min.js"></script>
+<!-- <script src="js/hplus.min.js-v=4.0.0"></script> -->
+<!-- <script type="text/javascript" src="js/contabs.min.js"></script> -->
+<script src="js/plugins/pace/pace.min.js"></script>
+</body>
+<script type="text/javascript">
+	//滑出框
+	window.onload = function(){
+        $("#nodebtn").click(function(){
+        	$("#nodebtn").css("display","none");
+            $("#nodeback").css("display","block");
+            $("#userbtn").css("display","none");
+            
+            $("#nodediv").css("display","block");
+            $("#nodediv").animate({left:'0px'},'fast');
+            
+            $('#nodemanage').attr('src','nodeManage.html');
+        });
+        $("#nodeback").click(function(){
+			$("#nodebtn").css("display","block");
+            $("#nodeback").css("display","none");
+            $("#userbtn").css("display","block");
+            
+            $("#nodediv").animate({left:'-100%'},'fast',function(){
+                $(this).css("display","none");
+            });
+        });
+        
+        $("#userbtn").click(function(){
+        	$("#userbtn").css("display","none");
+            $("#userback").css("display","block");
+            $("#nodebtn").css("display","none");
+        	
+            $("#userdiv").css("display","block");
+            $("#userdiv").animate({right:'0px'},'fast');
+            
+            $('#usermanage').attr('src','userManage.html');
+        });
+        $("#userback").click(function(){
+        	$("#userbtn").css("display","block");
+            $("#userback").css("display","none");
+            $("#nodebtn").css("display","block");
+        	
+            $("#userdiv").animate({right:'-100%'},'fast',function(){
+                $(this).css("display","none");
+            });
+        });
+    }
+	//滚动
+// 	var sec = 0;
+	var frameWindow = document.getElementById('iframe').contentWindow;
+	$(frameWindow).scroll(function(){
+		var b = $(frameWindow).scrollTop();
+// 		console.log(b);
+		if($(frameWindow).scrollTop()>25){
+			$("#top-column").css('height','30px');
+// 			$("#content-main").css('padding', "30px 15px 0px 15px");
+			$("#n,#u,#nback,#uback").css('opacity','0');
+			$("#an,#au,#anback,#auback,#ae").css('top','5px');
+			$("#nodebtn,#userbtn,#nodeback,#userback").css('height','30px').css('width','90px');
+			$("#exit").css('height','30px');
+			$("#nodediv,#userdiv").css('height','calc(100% - 30px)');
+			$("#globaltitle").css('top','5px').css('left','calc(50% - 101.4px)');
+			$("#t").css('font-size','1.2em');
+// 	       if($(frameWindow).scrollTop()<sec){
+// 	    	   $("#top-column").css('height','55px');
+// // 				$("#content").css('padding', "55px 15px 0px 15px");
+// 				$("#n,#u,#nback,#uback").css('opacity','1');
+// 				$("#an,#au,#anback,#auback,#ae").css('top','20px');
+// 				$("#nodebtn,#userbtn,#nodeback,#userback").css('height','55px').css('width','90px');
+// 				$("#exit").css('height','55px');
+// 				$("#nodediv,#userdiv").css('height','calc(100% - 55px)');
+// 				$("#globaltitle").css('top','15px').css('left','calc(50% - 143.62px)');
+// 				$("#t").css('font-size','1.7em');
+// 			}
+// 			sec = $(frameWindow).scrollTop();
+		}else{
+			$("#top-column").css('height',(55-b)+'px');
+// 			$("#content-main").css('padding', (55-b)+"px 15px 0px 15px")
+			$("#n,#u,#nback,#uback").css('opacity',(25-b)/25);
+			$("#an,#au,#anback,#auback,#ae").css('top',5+((25-b)/25)*15 + 'px');
+			$("#nodebtn,#userbtn,#nodeback,#userback").css('height',(55-b)+'px').css('width','90px');
+			$("#exit").css('height',(55-b)+'px');
+			$("#nodediv,#userdiv").css('height','calc(100% - 55px)');
+			$("#globaltitle").css('top',5+((25-b)/25)*10 + 'px').css('left','calc(50% - '+(101.4+((25-b)/25)*42.22)+'px)');
+			$("#t").css('font-size',1.2+((25-b)/25)*0.5 + 'em');
+		}
+	});
+</script>
+</html>

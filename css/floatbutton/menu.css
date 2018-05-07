@@ -1,0 +1,11 @@
+#menu {float: left;height:30px;width:300px;margin-top: 5px;margin-left: 20px;-webkit-box-shadow: #666 0px 0px 5px;  
+					   -moz-box-shadow: #999999 0px 0px 5px;box-shadow: #999999 0px 0px 5px;opacity:1;}
+#menu ul {list-style-type: none;margin:0px;padding:0px; display: block;}
+#menu ul li {cursor: pointer;text-align: center;line-height:10px;height:30px;width:60px;margin:0px;padding:10px;float:left;background-color: #fff;color: #32c96a;}
+/* #menu ul li a{text-align: center;display: block;color: #000000;margin-top: -4px;} */
+#menu ul li:hover,#menu ul li.cur {background-color: #32c92a;color: #fff;}
+/* 时间选择框样式 */
+.demo-input {padding-left: 10px; height: 30px; min-width: 270px; line-height: 38px; border: 1px solid #e6e6e6;background-color: #fff;}
+.demo-footer {padding: 50px 0; color: #999; font-size: 14px;}
+.demo-footer a{padding: 0 5px; color: #01AAED;}
+#timeselect {float: left;margin-top: 5px;-webkit-box-shadow: #666 0px 0px 5px;-moz-box-shadow: #999999 0px 0px 5px;box-shadow: #999999 0px 0px 5px;opacity:1;}

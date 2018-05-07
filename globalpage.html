@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>概况</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min.css" rel="stylesheet">
+    <link href="css/globalpage.css" rel="stylesheet">
+    <script src="myjs/html5shiv.min.js"></script>
+    <script src="myjs/respond.min.js"></script>
+    <style>.table > tbody > tr > td a {
+        color: #999;
+    }</style>
+    <base target="_blank">
+</head>
+<body class="gray-bg" style="margin-top:25px">
+<div class="wrapper animated fadeInRight">
+	<!-- 地图总览 -->
+	<div class="row">
+		<div class="ibox">
+			<div class="ibox-content" style="padding: 5px 0px 0px 5px;border-radius:4px 4px 4px 4px;overflow:hidden">
+				<div class="col-2">
+				  	<div>
+				  		<div class="col-title-l">
+				  			<label style="float: right;color: white;">来源国家Top5</label>
+				  		</div>
+				  		<div class="mapside">
+				  			<table class="table table-stripped toggle-arrow-tiny" data-page-size="8">
+			                    <thead>
+			                    <tr>
+			                        <th>国家</th>
+			                        <th>威胁数量</th>
+			                    </tr>
+			                    </thead>
+			                    <tbody id="mainthreat">
+			                    </tbody>
+			               	</table>
+				  		</div>
+			        </div>
+			        <div>
+				  		<div class="col-title-l">
+				  			<label style="float: right;color: white;">安全评分</label>
+				  		</div>
+				  		<div class="mapside">
+				  			<table class="table table-stripped toggle-arrow-tiny" data-page-size="8">
+			                    <thead>
+			                    <tr>
+			                        <th>节点名</th>
+			                        <th>威胁类型</th>
+			                        <th>IP</th>
+			                    </tr>
+			                    </thead>
+			                    <tbody id="mainthreat">
+			                    </tbody>
+			               	</table>
+				  		</div>
+			        </div>
+				</div>
+				<div class="col-6">
+				   <div>
+				   		<div style="float:left;margin-top:-6px;margin-left: 40%;">
+				   			<h2><b>威胁来源示意图</b></h2>
+				   		</div>
+				   		<div class="btn-group" style="float:right;margin-top:-6px;margin-right: 20px;">
+	                        <button  type="button" id="nodecontrol" onclick="" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >总览<span class="caret"></span>
+	                        </button>
+	                        <ul id="nodelist" class="dropdown-menu">
+	                            <li><a  target="_self">节点1</a></li>
+	                            <li><a  target="_self">节点2</a></li>
+	                            <li><a  target="_self">节点3</a></li>
+	                            <li><a  target="_self">节点4</a></li>
+	                            <li><a  target="_self">节点5</a></li>
+	                            <li><a  target="_self">节点6</a></li>
+	                            <li><a  target="_self">节点7</a></li>
+	                            <li><a  target="_self">总览</a></li>
+	                        </ul>
+	                    </div>
+						<div class="col-sm-12">
+				             <div style="height:625px" id="echarts-map1-chart"></div>
+				         </div>
+			       </div>
+				</div>
+				<div class="col-2">
+				<div>
+					<div class="col-title-r">
+			  			<label style="float: left;color: white;">安全评分</label>
+			  		</div>
+					<div class="mapside">
+		               <table class="table table-stripped toggle-arrow-tiny" data-page-size="8">
+		                   <thead>
+		                   <tr>
+		                       <th>节点名</th>
+		                       <th>威胁类型</th>
+		                       <th>IP</th>
+		                   </tr>
+		                   </thead>
+		                   <tbody id="mainthreat">
+		                   </tbody>
+		               </table>
+		           </div>
+		        </div>
+		        <div>
+					<div class="col-title-r">
+			  			<label style="float: left;color: white;">安全评分</label>
+			  		</div>
+					<div class="mapside">
+		               <table class="table table-stripped toggle-arrow-tiny" data-page-size="8">
+		                   <thead>
+		                   <tr>
+		                       <th>节点名</th>
+		                       <th>威胁类型</th>
+		                       <th>IP</th>
+		                   </tr>
+		                   </thead>
+		                   <tbody id="mainthreat">
+		                   </tbody>
+		               </table>
+		           </div>
+		        </div>
+			</div>
+			</div>
+		</div>
+	</div>
+	<!-- 详细信息 -->
+	<div class="row">
+	<!-- 各节点威胁数量开始 -->
+		<div class="col-sm-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>各节点威胁数量</h5>
+                </div>
+                <div class="ibox-content">
+                    <div style="height: 255px;overflow: hidden;">
+                    	<table class="table table-stripped toggle-arrow-tiny">
+                    		<thead>
+                    			<tr>
+                    				<th>#</th>
+                    				<th>节点标识</th>
+                    				<th>威胁数量</th>
+                    			</tr>
+                    		</thead>
+                    		<tbody id="nums">
+                    		</tbody>
+                    	</table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 各节点威胁数量结束 -->
+        <!-- 各节点突出威胁类型和ip开始 -->
+		<div class="col-sm-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>各节点威胁数量</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="headflows">
+                        <table class="table table-stripped toggle-arrow-tiny" data-page-size="8">
+                            <colgroup>
+					            <col width="30%">
+					            <col width="30%">
+					            <col width="30%">
+					        </colgroup>
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                    			<th>节点标识</th>
+                    			<th>威胁数量</th>
+                            </tr>
+                            </thead>
+                         </table>
+                    </div>
+                    <div class="tableflows">
+                         <table class="table table-stripped toggle-arrow-tiny" data-page-size="8">
+                            <colgroup>
+					            <col width="30%">
+					            <col width="30%">
+					            <col width="30%">
+					        </colgroup>
+                            <tbody id="mainthreat">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<!-- 各节点突出威胁类型和ip结束 -->
+	</div>
+	<div class='row'>
+		<!-- 	各节点 -->
+		<div class="col-sm-12">
+			<div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>各节点威胁</h5>
+                </div>
+                <div class="ibox-content">
+                </div>
+            </div>
+		</div>
+		<!-- 	各节点 -->
+	</div>
+	<div class='row'>
+		<!-- 	各节点 -->
+		<div class="col-sm-12">
+			<div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>各节点威胁</h5>
+                </div>
+                <div class="ibox-content">
+                	<div class="row-in">
+                        <div class="col-sm-12">
+                            <div style="height:255px" id="protocolchart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+		<!-- 	各节点 -->
+	</div>
+</div>
+<script src="js/map/jquery.min.js-v=2.1.4"></script>
+<script src="js/map/echarts.js"></script>
+<script src="js/map/world.js"></script>
+<script src="js/bootstrap.min.js-v=3.3.5"></script>
+<script src="js/content.min.js-v=1.0.0"></script>
+<script src="myjs/globalpage.js"></script>
+<script type="text/javascript">
+</script>
+</body>
+</html>

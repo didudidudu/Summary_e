@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户管理</title>
+    <meta name="keywords" content="渠道通">
+    <meta name="description" content="渠道通">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Data Tables -->
+    <link href="css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min.css" rel="stylesheet">
+    <base target="_blank">
+    <script src="myjs/html5shiv.min.js"></script>
+    <script src="myjs/respond.min.js"></script>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5></h5>
+                    <div class="ibox-tools">
+                        <li data-toggle="modal" id="Add" class="btn btn-sm btn-primary" href="javascript:"
+                           target="_self">新建用户</li>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="ibox-content">
+                        <table class="table table-striped table-bordered table-hover " id="editable">
+                            <thead>
+                            <tr>
+                                <th style="text-align: center">ID</th>
+                                <th style="text-align: center">用户名</th>
+                                <th style="text-align: center">姓名</th>
+                                <th style="text-align: center">状态</th>
+                                <th style="text-align: center">创建时间</th>
+                                <th style="text-align: center">最后一次登录时间</th>
+                                <th style="text-align: center">最后一次登录IP</th>
+                                <th style="text-align: center">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id='databody'>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- 新增用户 -->
+<div id="modal-form" class="modal fade in" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="ibox float-e-margins">
+                            <div>
+                                <form method="get" class="form-horizontal">
+                                    <div class="form-group">
+                                        <input type="hidden" class="form-control" id="userid">
+                                        <label class="col-sm-2 control-label"><font color="red">*</font>用户名</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="accno" onblur="checkaccno()">
+                                            <span class="help-block m-b-none" id="spanaccno"><font color='gray'>4-16个字符，支持字母数字或下划线</font></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><font color="red">*</font>姓名</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="name" onblur="checkname()">
+                                            <span class="help-block m-b-none" id="spanname"><font
+                                                    color='gray'>2-4个汉字或2-19个字母</font></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><font color="red">*</font>状态</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control m-b" name="account" id="state">
+                                                <option value="1">正常</option>
+                                                <option value="0">冻结</option>
+                                                <option value="2">未激活</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4 col-sm-offset-2">
+                                            <a data-toggle="" id="Protect" class="btn btn-sm btn-primary"
+                                               href="javascript:saveuser();" target="_self">保存</a>
+                                            <a data-toggle="" id="cancelProtect" class="btn btn-sm btn-white"
+                                               href="javascript:reset();" target="_self">取消</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop fade in" style="display: none;"></div>
+<!-- 修改密码 -->
+<div id="modal-form1" class="modal fade in" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="ibox float-e-margins">
+                            <div>
+                                <form method="get" class="form-horizontal">
+                                    <div class="form-group">
+                                        <input type=hidden class="form-control" id="userid1">
+                                        <label class="col-sm-2 control-label"><font color="red">*</font>用户名</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="pwdaccNo" disabled="disabled">
+                                            <span class="help-block m-b-none" id="spanpwdaccno"><font
+                                                    color='gray'></font></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><font color="red">*</font>密码</label>
+                                        <div class="col-sm-10">
+                                            <input type="password" class="form-control" id="pwd" onblur="checkpwd()"
+                                                   onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/g,'')"
+                                                   maxlength="16"/>
+                                            <span class="help-block m-b-none" id="spanpwd"><font color='gray'>4-16个字符，支持字符和数字</font></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><font color="red">*</font>确认密码</label>
+                                        <div class="col-sm-10">
+                                            <input type="password" class="form-control" id="repwd" onblur="checkrepwd()"
+                                                   onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/g,'')"
+                                                   maxlength="16"/>
+                                            <span class="help-block m-b-none" id="spanrepwd"><font color='gray'></font></span>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4 col-sm-offset-2">
+                                            <a data-toggle="" id="Change" target="_self" class="btn btn-sm btn-primary"
+                                               href="javascript:update();">修改</a>
+                                            <a data-toggle="" id="cancelChange" target="_self" class="btn btn-sm btn-white"
+                                               href="javascript:resetpwd();">取消</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop fade in" style="display: none;"></div>
+
+<script src="myjs/date.js"></script>
+<script src="js/jquery.min.js-v=2.1.4"></script>
+<!--
+<script src="js/bootstrap.min.js-v=3.3.5"></script>   -->
+<script src="js/content.min.js-v=1.0.0"></script>
+<script src="js/plugins/iCheck/icheck.min.js"></script>
+<script src="myjs/login.js"></script>
+<script>
+	$(function () {getdatas();});
+    $("#Add").click(function () {
+    	var acc = currentaccno; 
+    	if (acc == 'admin') { 
+         $("#modal-form").show(100);
+         $(".modal-backdrop").show(100);
+         $("#userid").val("");
+    	}else{
+        	alert("非管理员不允许操作");
+        }
+    });
+    function getdatas() {
+    	$.ajax({
+            type: "post",
+            url: "",
+            data: {'action': 'getUserLstJson'},
+            dataType: 'json',
+            success: function (data) {
+ //            	alert(data);
+            	/*    
+            	alert(JSON.stringify(data)); */
+                if (data == null || data.length < 0) {//没有用户
+                	/* alert("meiyouyonghu") */
+                } else {
+                    var restr = "";
+                    for (var i = 0; i < data.length; i++) {
+                        var obj = data[i];
+                        var sdate = "--";
+                        var cdate = "--";
+                        var statez = "--";
+                        if (obj.create_time != null)
+                            sdate = new Date(obj.create_time);
+                        if (obj.last_logon_time != null)
+                            cdate = new Date(obj.last_logon_time);
+                        if (obj.state == '1')
+                            statez = '正常';
+                        else if (obj.state == '0')
+                            statez = '冻结';
+                        else if (obj.state == '2')
+                            statez = '未激活';
+                        if(obj.last_logon_ip == null || obj.last_logon_ip =='null' )
+                        	obj.last_logon_ip = '未登录';
+                        restr += "<tr class='gradeX' id='" + obj.id + "'>" +
+                                "<td align='center'>" + obj.id + "</td>" +
+                                "<td align='center'>" + obj.acc_no + "</td>" +
+                                "<td align='center'>" + obj.name + "</td>" +
+                                "<td align='center'>" + statez + "</td>" +
+                                "<td align='center'>" +dateFormat("yyyy-MM-dd hh:mm:ss S",sdate) + "</td>" +
+                                 "<td align='center'>" +dateFormat("yyyy-MM-dd hh:mm:ss S",cdate) + "</td>" + 
+                                "<td align='center'>" + obj.last_logon_ip + "</td>";
+                        if (obj.id == 1) {
+                            restr += "<td align='center'><nobr>" +
+                                    "<a data-toggle='' class='btn btn-sm btn-primary' target='_self' href='javascript:resetpwdRow(" + obj.id + ",&quot;" + obj.acc_no + "&quot;);'>修改密码</a>" +
+                                    "</nobr></td>";
+                        } else {
+                            restr += "<td align='center'><nobr>" +
+                                    "<a data-toggle='' class='btn btn-sm btn-primary' target='_self' href='javascript:editRow(" + obj.id + ",&quot;" + obj.acc_no + "&quot;,&quot;" + obj.name + "&quot;,&quot;" + obj.state + "&quot;);'>编辑</a>&nbsp;&nbsp;" +
+                                    "<a data-toggle='' class='btn btn-sm btn-primary' target='_self' href='javascript:deleteRow(" + obj.id + ");'>删除</a>&nbsp;&nbsp;" +
+                                    "<a data-toggle='' class='btn btn-sm btn-primary' target='_self' href='javascript:resetpwdRow(" + obj.id + ",&quot;" + obj.acc_no + "&quot;);'>修改密码</a>" +
+                                    "</nobr></td>";
+                        }
+                        restr += "</tr>";
+                    }
+                    $("#databody").html(restr);
+                }
+            },
+            error: function (data) {
+//                 alert(data.status);
+            }
+        });
+    }
+    <!-- 取消增加或编辑用户 -->
+    function reset() {
+        $("#accno").val("").attr("disabled",false);
+        $("#name").val("");
+        $("#state").val("1");
+        $("#modal-form").hide(100);
+        $(".modal-backdrop.in").hide(100);
+        $("#spanaccno").html("<font color='gray'>4-16个字符，支持字母数字或下划线</font>");
+        $("#spanname").html("<font color='gray'>2-4个汉字或2-19个字母</font>");
+    }
+    <!-- 取消修改密码 -->
+    function resetpwd() {
+        $("#userid1").val("");
+        $("#pwdaccno").val("");
+        $("#pwd").val("");
+        $("#repwd").val("");
+        $("#modal-form1").hide(100);
+        $(".modal-backdrop.in").hide(100);
+        $("#spanpwd").html("<font color='gray'>提示：6-16个字符，支持数字和大小写字母</font>");
+        $("#spanrepwd").html("");
+    }
+    <!-- 修改密码弹出框 -->
+    function resetpwdRow(id, accNo) {
+    	var acc = currentaccno;
+        if (acc == 'admin') {
+            $("#modal-form1").show(100);
+            $(".modal-backdrop").show(100);
+            $("#userid1").val(id);
+            $("#pwdaccNo").val(accNo);
+        } else {
+            if (acc == accNo) {
+                $("#modal-form1").show(100);
+                $(".modal-backdrop").show(100);
+                $("#userid1").val(id);
+                $("#pwdaccNo").val(accNo);
+            } else if (acc != accNo) {
+                alert("非系统管理员不允许该操作！");
+            } else {
+                alert("系统错误！");
+            }
+        }
+    	
+    }
+    <!-- 编辑用户 -->
+    function editRow(id, accNo, name, state) {
+    	var acc = currentaccno;
+     if (acc == 'admin') {
+         $("#spanaccno").html("");
+         $("#spanname").html("");
+         $("#modal-form").show(100);
+         $(".modal-backdrop.in").show(100);
+         $("#userid").val(id);
+         $("#accno").val(accNo).attr("disabled",true);
+         $("#name").val(name);
+         $("#state").val(state);
+     } else {
+         if (acc == accNo) {
+             $("#spanaccno").html("");
+             $("#spanname").html("");
+             $("#modal-form").show(100);
+             $(".modal-backdrop.in").show(100);
+             $("#userid").val(id);
+             $("#accno").val(accNo).attr("disabled",true);
+             $("#name").val(name);
+             $("#state").val(state).attr("disabled",true);
+         } else if (acc != accNo) {
+             alert("非系统管理员不允许该操作！");
+         } else {
+             alert("系统错误！");
+         }
+     }
+    }
+    <!-- 检验用户名 -->
+    function checkaccno() {
+            var flag = false;
+    		var str = $("#accno").val();
+            var id = $("#userid").val();
+            var re = /^[a-zA-z]{1,}\w{3,15}$/;
+            if (str != "" && re != "" && re.test(str)) {
+                
+            	$.ajax({
+                    type: "post",
+                    url: "",
+                    data: {'action': 'ishaveuser', 'acc_no': str, 'id': id},
+                    dataType: 'text',
+                   /*  async:false, */
+                    success: function (data) {
+                    		/* alert(data); */
+                            if (data == false||data == 'false') {
+                                $("#spanaccno").html("<font color='green'>通过，可以注册</font>");
+                                flag = true;
+                            } else {
+                                $("#spanaccno").html("<font color='red'>提示：用户名已占用！4-16个字符，支持字母数字或下划线</font>");
+                            }
+                    },
+                    error: function (data) {
+                        //alert(data.status);
+                    }
+                });
+            	
+                return flag;
+            } else {
+                $("#spanaccno").html("<font color='red'>提示：请正确填写用户名！4-16个字符，支持字母数字或下划线</font>");
+                return flag;
+            }
+        }
+    <!-- 检验姓名 -->
+    function checkname() {
+        var str = $("#name").val();
+        var re = /^[\u4e00-\u9fa5]{2,5}$|^[A-Za-z]{2,20}$/;
+        if (re.test(str)) {
+            $("#spanname").html("<font color='green'>通过</font>");
+            return true;
+        } else {
+            $("#spanname").html("<font color='red'>提示：请正确填写姓名！姓名为2-4个汉字或2-19个字母</font>");
+            return false;
+        }
+    }
+    <!-- 检验要修改的密码 -->
+    function checkpwd() {
+        var str = $("#pwd").val();
+        var re =/^[0-9a-zA-Z]{6,16}$/;
+        if (re.test(str)) {
+            $("#spanpwd").html("<font color='green'>通过</font>");
+            return true;
+        } else if(str==""){
+            $("#spanpwd").html("<font color='red'>请输入密码 </font>");
+            return false;
+        } else {
+            $("#spanpwd").html("<font color='red'>提示：6-16个字符，支持数字和大小写字母</font>");
+            return false;
+        }
+    }
+    <!-- 检验再次输入的密码 -->
+    function checkrepwd() {
+        var pwd = $("#pwd").val();
+        var repwd = $("#repwd").val();
+        var re = /^[0-9a-zA-Z]{6,16}$/;
+        if (pwd != repwd && repwd != "" && pwd!="") {
+            $("#spanrepwd").html("<font color='red'>提示：两次密码输入不一样</font>");
+            return false;
+        } else if(pwd== "") {
+            $("#spanpwd").html("<font color='red'>请输入密码</font>");
+            return false;
+        } else if(pwd== "" && repwd!= "") {
+            $("#spanpwd").html("<font color='red'>请输入密码</font>");
+            return false;
+        }else if(pwd!= ""&&repwd==""&&re.test(pwd)){
+            $("#spanrepwd").html("<font color='red'>请再次输入密码</font>");
+            return false;
+        }else if(!re.test(pwd)){
+            $("#spanpwd").html("<font color='red'>提示：6-16个字符，支持数字和大小写字母</font>");
+            return false;
+        }else {
+            $("#spanpwd").html("<font color='green'>通过</font>");
+            $("#spanrepwd").html("<font color='green'>通过</font>");
+            return true;
+        }
+    }
+    <!-- 更新密码 -->
+    function update() {
+        var pwd = $("#pwd").val();
+        var id = $("#userid1").val();
+        if (checkrepwd()) {
+            $.ajax({
+                type: "post",
+                url: "",
+                data: {'action': 'resetpwd', 'id': id, 'pwd': pwd},
+                dataType: 'text',
+                success: function (data) {
+                    if (data == 1 || data == '1') {
+                        alert("修改成功");
+                        resetpwd();
+                    } else if (data == 2 || data == '2') {//当前用户 需要重新登录
+                        alert("修改成功");
+                        doNoTipExit();
+                    } else {
+                        alert("重置失败，请稍后重试！");
+                    }
+                },
+                error: function (data) {
+                    //alert(data.status);
+                }
+            });
+        }
+    }
+    <!-- 保存用户信息 -->
+    function saveuser() {
+        var id = $("#userid").val();
+        var str = $("#accno").val();
+        var str1 = $("#name").val();
+        
+            if (id == '') {
+            	if(!checkaccno() && checkname()){            	
+                $.ajax({
+                    type: "post",
+                    url: "",
+                    data: {'action': 'resigter', 'acc_no': str, 'name': str1, 'state': $("#state").val()},
+                    dataType: 'text',
+                    success: function (data) {
+                       if(data == 'false'){
+                    	   var secon = confirm("新增用户失败，是否重新添加");
+                    	   if(secon == true){
+                    		   alert("赋予新值")
+                    	   }else{
+                    		   reset();
+                    	   }
+                       }else if(data == 'true')
+                       {
+                    	alert("新增用户成功，返回主页面");
+                    	reset();
+                        getdatas();
+                       }
+                    },
+                    error: function (data) {
+                        //alert(data.status);
+                    }
+                });
+            	}
+            } else {
+            	if (checkname()) {
+                $.ajax({
+                    type: "post",
+                    url: "",
+                    data: {'action': 'resigter', 'id': id, 'acc_no': str, 'name': str1, 'state': $("#state").val()},
+                    dataType: 'text',
+                    success: function (data) {
+                        reset();
+                        getdatas();
+                    },
+                    error: function (data) {
+                        alert(data.status);
+                    }
+                });
+            }
+        }
+
+    }
+    <!-- 删除用户 -->
+    function deleteRow(id) {
+        if (confirm("确定删除该用户吗？")) {
+            $.ajax({
+                type: "post",
+                url: "",
+                data: {'action': 'deluser', 'id': id},
+                dataType: 'text',
+                success: function (data) {
+                    //alert(JSON.stringify(data));
+                    if (data == 1 || data == '1') {
+                        alert("删除成功");
+                        getdatas();
+                    } else if (data == 2 || data == '2') {
+                        alert("不能删除当前用户");
+                    } else if (data == 3 || data == '3') {
+                        alert("非系统管理员不允许该操作！");
+                    } else {
+                        alert("删除失败");
+                    }
+                },
+                error: function (data) {
+                    //alert(data.status);
+                }
+            });
+        }
+        getdatas();
+    }
+
+    //强制退出系统
+    function doNoTipExit() {
+        $.post("http://localhost:8080/service",
+                {"action": "doexit"},
+                function (result) {
+                    document.cookie = "currentUserId=%7B%22state%22%3A%22i%3A-1%22%7D; path=/ ";
+                    document.cookie = "isLocked=%7B%22state%22%3A%22i%3A0%22%7D; path=/ ";
+                    location.href = "login.html";
+                });
+    }
+    
+    //时间格式化转换
+    function dateFormat(fmt,date){
+	    if(date == '--'){
+	    	fmt = date
+	    }else {
+	    	var o = {   
+				    "M+" : date.getMonth()+1,                 //月份   
+				    "d+" : date.getDate(),                    //日   
+				    "h+" : date.getHours(),                   //小时   
+				    "m+" : date.getMinutes(),                 //分   
+				    "s+" : date.getSeconds(),                 //秒   
+				    "q+" : Math.floor((date.getMonth()+3)/3), //季度   
+				    "S"  : date.getMilliseconds()             //毫秒
+	    		}; 
+			 if(/(y+)/.test(fmt))   
+			    fmt=fmt.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length));   
+			  for(var k in o)   
+			    if(new RegExp("("+ k +")").test(fmt))   
+			  		fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+	    }
+		  return fmt;
+    }
+</script>
+</body>
+
+</html>
